@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helaynne Alessandra | Dados & Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep:    #0a0a1a;
+    --bg-mid:     #0e0e2a;
+    --bg-card:    #111130;
+    --bg-card2:   #13133a;
+    --accent:     #2563eb;
+    --accent2:    #1d4ed8;
+    --accent-glow:#3b82f6;
+    --purple:     #4c1d95;
+    --purple2:    #6d28d9;
+    --text:       #f0f0ff;
+    --text-muted: #9090b8;
+    --text-dim:   #5a5a88;
+    --border:     rgba(99,102,241,0.18);
+    --h1-color:   #e0e7ff;
+    --h2-color:   #c7d2fe;
+    --h3-color:   #a5b4fc;
+    --tag-bg:     rgba(37,99,235,0.15);
+    --tag-border: rgba(99,102,241,0.35);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-deep);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* ── BACKGROUND NETWORK ── */
+  #bg-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.35;
+  }
+
+  /* ── LAYOUT ── */
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  section { padding: 64px 0; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    padding: 80px 0 64px;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .hero-text { animation: fadeUp 0.8s ease both; }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-glow);
+    margin-bottom: 16px;
+  }
+
+  .hero-h1 {
+    font-size: clamp(26px, 5vw, 38px);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--h1-color);
+    margin-bottom: 20px;
+  }
+
+  .hero-h1 span {
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    max-width: 420px;
+  }
+
+  .btn-wpp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 13px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 24px rgba(37,99,235,0.35);
+  }
+  .btn-wpp:hover { background: var(--accent2); transform: translateY(-2px); }
+
+  .hero-img-wrap {
+    width: 250px;
+    height: 300px;
+    border-radius: 28px;
+    overflow: hidden;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 40px rgba(37,99,235,0.35), 0 0 0 6px rgba(37,99,235,0.08);
+    flex-shrink: 0;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ── SECTION LABEL ── */
+  .sec-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-glow);
+    margin-bottom: 12px;
+  }
+
+  .sec-title {
+    font-size: clamp(20px, 4vw, 26px);
+    font-weight: 700;
+    color: var(--h2-color);
+    margin-bottom: 20px;
+  }
+
+  /* ── QUEM SOU EU ── */
+  #sobre {
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .sobre-inner {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 32px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .sobre-foto {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 28px rgba(37,99,235,0.3);
+    flex-shrink: 0;
+  }
+
+  .sobre-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sobre-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .sobre-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .sobre-card-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--h3-color);
+    margin-bottom: 8px;
+  }
+
+  .sobre-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  /* ── SOLUÇÃO ── */
+  .solucao-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 28px;
+    margin-top: 8px;
+  }
+
+  .solucao-box p {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* ── PROJETOS ── */
+  .projetos-intro {
+    font-size: 13px;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-bottom: 32px;
+    padding: 16px 20px;
+    background: rgba(37,99,235,0.06);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    line-height: 1.65;
+  }
+
+  .projetos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .projeto-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .projeto-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99,102,241,0.5);
+    box-shadow: 0 8px 32px rgba(37,99,235,0.2);
+  }
+
+  .projeto-card.full {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+  }
+
+  .projeto-thumb {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    display: block;
+    background: var(--bg-card2);
+  }
+
+  .projeto-card.full .projeto-thumb {
+    width: 220px;
+    height: 100%;
+    aspect-ratio: unset;
+  }
+
+  .projeto-body {
+    padding: 16px 18px 20px;
+  }
+
+  .projeto-titulo {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--h3-color);
+    margin-bottom: 8px;
+    line-height: 1.35;
+  }
+
+  .projeto-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .projeto-link-label {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent-glow);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── FERRAMENTAS ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .tool-group {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+
+  .tool-group-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--h3-color);
+    margin-bottom: 12px;
+  }
+
+  .tool-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    border-radius: 5px;
+    padding: 4px 10px;
+  }
+
+  /* ── CONTATO ── */
+  .contato-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 8px;
+  }
+
+  .contato-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .contato-item:hover {
+    border-color: rgba(99,102,241,0.5);
+    background: var(--bg-card2);
+  }
+
+  .contato-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: rgba(37,99,235,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .contato-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .contato-val {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 32px 0;
+    font-size: 12px;
+    color: var(--text-dim);
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 560px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-img-wrap { display: none; }
+    .sobre-inner { grid-template-columns: 1fr; }
+    .sobre-foto { width: 120px; height: 145px; }
+    .sobre-grid { grid-template-columns: 1fr; }
+    .projetos-grid { grid-template-columns: 1fr; }
+    .projeto-card.full { grid-template-columns: 1fr; }
+    .projeto-card.full .projeto-thumb { width: 100%; height: 200px; }
+    .tools-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section id="hero">
+  <div class="wrapper">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-eyebrow">Portfólio · Dados & Design</p>
+        <h1 class="hero-h1">
+          Dados que contam histórias.<br>
+          <span>Design que convence.</span>
+        </h1>
+        <p class="hero-sub">Transformo informação em decisão e marcas em experiência.</p>
+        <a class="btn-wpp" href="https://wa.me/5562996677168" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Fale comigo no WhatsApp
+        </a>
+      </div>
+      <div class="hero-img-wrap">
+        <img src="images/hero.jpg" alt="Helaynne Alessandra">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════
+     QUEM SOU EU
+══════════════════════════════════════ -->
+<section id="sobre">
+  <div class="wrapper">
+    <p class="sec-label">Quem sou eu</p>
+    <h2 class="sec-title">Helaynne Alessandra</h2>
+    <div class="sobre-inner">
+      <div class="sobre-foto">
+        <img src="images/foto.jpg" alt="Helaynne Alessandra">
+      </div>
+      <p style="font-size:15px; color:var(--text-muted); line-height:1.75;">
+        Analista de dados e designer com mais de 7 anos de experiência unindo criatividade e análise. Trabalho com Excel, Power BI, Python e Streamlit para transformar dados em insights — e com design, branding e marketing para transformar insights em comunicação.
+      </p>
+    </div>
+    <div class="sobre-grid">
+      <div class="sobre-card">
+        <p class="sobre-card-label">Análise de Dados</p>
+        <p>Do diagnóstico ao dashboard, com foco em decisões orientadas a negócio e clareza visual.</p>
+      </div>
+      <div class="sobre-card">
+        <p class="sobre-card-label">Design & Branding</p>
+        <p>Identidades visuais, materiais gráficos e estratégia de marca com estilo corporativo e impacto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════
+     SOLUÇÃO
+══════════════════════════════════════ -->
+<section id="solucao">
+  <div class="wrapper">
+    <p class="sec-label">Solução</p>
+    <h2 class="sec-title">O que eu entrego</h2>
+    <div class="solucao-box">
+      <p>Ofereço análises completas orientadas a negócio: do diagnóstico ao dashboard, da identidade visual à estratégia de marca. Atendo pequenas e médias empresas que precisam tomar decisões mais inteligentes e se comunicar com mais impacto.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════
+     PROJETOS
+══════════════════════════════════════ -->
+<section id="projetos">
+  <div class="wrapper">
+    <p class="sec-label">Meus projetos</p>
+    <h2 class="sec-title">Trabalhos em destaque</h2>
+    <p class="projetos-intro">
+      Todos os projetos utilizam marcas fictícias criadas por mim como contexto ilustrativo, com dados públicos extraídos do Kaggle. O foco é demonstrar raciocínio analítico, clareza visual e entrega orientada ao negócio.
+    </p>
+
+    <div class="projetos-grid">
+
+      <!-- Projeto 1 -->
+      <a class="projeto-card" href="(cola o link aqui)" target="_blank">
+        <img class="projeto-thumb" src="images/projeto1.jpg" alt="OfficeMart">
+        <div class="projeto-body">
+          <p class="projeto-titulo">Análise de Desempenho e Vendas — OfficeMart</p>
+          <p class="projeto-desc">Projeto de análise de dados para uma rede varejista com mais de 600 lojas nos EUA. Inclui segmentação de clientes por RFM, análise de cohort para retenção e mapeamento de desempenho por loja e produto, tudo construído no Excel.</p>
+          <span class="projeto-link-label">Ver projeto →</span>
+        </div>
+      </a>
+
+      <!-- Projeto 2 -->
+      <a class="projeto-card" href="(cola o link aqui)" target="_blank">
+        <img class="projeto-thumb" src="images/projeto2.jpg" alt="EasyRent">
+        <div class="projeto-body">
+          <p class="projeto-titulo">Dashboard de Análise de Acomodações — EasyRent</p>
+          <p class="projeto-desc">Dashboard interativo desenvolvido no Power BI para apoiar a expansão estratégica de uma plataforma de locação. Inclui análise de crescimento de acomodações, distribuição geográfica por bairros em Nova York e variação de preços ao longo do tempo.</p>
+          <span class="projeto-link-label">Ver projeto →</span>
+        </div>
+      </a>
+
+      <!-- Projeto 3 -->
+      <a class="projeto-card" href="(cola o link aqui)" target="_blank">
+        <img class="projeto-thumb" src="images/projeto3.jpg" alt="Aroma Café">
+        <div class="projeto-body">
+          <p class="projeto-titulo">Análise de Desempenho da Rede — Aroma Café</p>
+          <p class="projeto-desc">Análise completa de uma rede de cafeterias com faturamento crescente e queda pontual em uma unidade. Percorre as quatro camadas analíticas — descritiva, diagnóstica, preditiva e prescritiva — com previsão de 30 dias e recomendações estratégicas. Desenvolvido no Google Sheets.</p>
+          <span class="projeto-link-label">Ver projeto →</span>
+        </div>
+      </a>
+
+      <!-- Projeto 4 -->
+      <a class="projeto-card" href="(cola o link aqui)" target="_blank">
+        <img class="projeto-thumb" src="images/projeto4.jpg" alt="MesaLivre">
+        <div class="projeto-body">
+          <p class="projeto-titulo">Dashboard de Restaurantes — MesaLivre</p>
+          <p class="projeto-desc">Análise de um marketplace global com quase 7 mil restaurantes em 15 países e mais de 4 milhões de avaliações. Dashboard interativo em Python com Streamlit, com visões por país, cidade e culinária — incluindo mapa geográfico com filtros em tempo real.</p>
+          <span class="projeto-link-label">Ver projeto →</span>
+        </div>
+      </a>
+
+      <!-- Projeto 5 — full width -->
+      <a class="projeto-card full" href="(cola o link aqui)" target="_blank">
+        <img class="projeto-thumb" src="images/projeto5.jpg" alt="Good Phantom">
+        <div class="projeto-body">
+          <p class="projeto-titulo">Branding & Métricas de Negócio — Good Phantom</p>
+          <p class="projeto-desc">Projeto de construção estratégica de uma startup criativa de branding e animação publicitária. Inclui definição do modelo de negócio, planejamento das 5 fases de crescimento, estrutura de métricas AARRR e ciclo de vida do cliente — do conceito ao escalonamento.</p>
+          <span class="projeto-link-label">Ver projeto →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════
+     FERRAMENTAS
+══════════════════════════════════════ -->
+<section id="ferramentas">
+  <div class="wrapper">
+    <p class="sec-label">Ferramentas & Habilidades</p>
+    <h2 class="sec-title">Com o que trabalho</h2>
+    <div class="tools-grid">
+
+      <div class="tool-group">
+        <p class="tool-group-label">Dados & Analytics</p>
+        <div class="tool-tags">
+          <span class="tag">Excel</span>
+          <span class="tag">Google Sheets</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">Looker Studio</span>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <p class="tool-group-label">Design & Marketing</p>
+        <div class="tool-tags">
+          <span class="tag">Canva</span>
+          <span class="tag">Identidade Visual</span>
+          <span class="tag">Branding</span>
+          <span class="tag">Marketing Digital</span>
+          <span class="tag">Kdenlive</span>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <p class="tool-group-label">Web & Tecnologia</p>
+        <div class="tool-tags">
+          <span class="tag">WordPress</span>
+          <span class="tag">Elementor</span>
+          <span class="tag">SEO</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">Claude</span>
+          <span class="tag">ChatGPT</span>
+          <span class="tag">Gemini</span>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <p class="tool-group-label">Administrativo</p>
+        <div class="tool-tags">
+          <span class="tag">Controle de Estoque</span>
+          <span class="tag">Gestão Financeira</span>
+          <span class="tag">Atendimento ao Público</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════
+     CONTATO
+══════════════════════════════════════ -->
+<section id="contato">
+  <div class="wrapper">
+    <p class="sec-label">Contato</p>
+    <h2 class="sec-title">Vamos conversar</h2>
+    <div class="contato-list">
+
+      <a class="contato-item" href="https://wa.me/5562996677168" target="_blank">
+        <div class="contato-icon">📞</div>
+        <div>
+          <p class="contato-label">WhatsApp</p>
+          <p class="contato-val">(62) 99667-7168</p>
+        </div>
+      </a>
+
+      <a class="contato-item" href="mailto:helaynnealessandra00@gmail.com">
+        <div class="contato-icon">✉️</div>
+        <div>
+          <p class="contato-label">E-mail</p>
+          <p class="contato-val">helaynnealessandra00@gmail.com</p>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrapper">
+    <p>© 2025 Helaynne Alessandra · Todos os direitos reservados</p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     CANVAS BACKGROUND
+══════════════════════════════════════ -->
+<script>
+(function(){
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes=[], RAF;
+
+  function resize(){
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function initNodes(){
+    nodes = [];
+    const count = Math.floor((W*H)/18000);
+    for(let i=0;i<count;i++){
+      nodes.push({
+        x: Math.random()*W,
+        y: Math.random()*H,
+        vx:(Math.random()-0.5)*0.3,
+        vy:(Math.random()-0.5)*0.3,
+        r: Math.random()*1.5+0.5
+      });
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const maxDist=130;
+
+    for(let i=0;i<nodes.length;i++){
+      const a=nodes[i];
+      a.x+=a.vx; a.y+=a.vy;
+      if(a.x<0||a.x>W) a.vx*=-1;
+      if(a.y<0||a.y>H) a.vy*=-1;
+
+      ctx.beginPath();
+      ctx.arc(a.x,a.y,a.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(99,102,241,0.7)';
+      ctx.fill();
+
+      for(let j=i+1;j<nodes.length;j++){
+        const b=nodes[j];
+        const dx=a.x-b.x, dy=a.y-b.y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<maxDist){
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);
+          ctx.lineTo(b.x,b.y);
+          ctx.strokeStyle=`rgba(99,102,241,${0.18*(1-dist/maxDist)})`;
+          ctx.lineWidth=0.6;
+          ctx.stroke();
+        }
+      }
+    }
+    RAF = requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize',()=>{ resize(); initNodes(); });
+  resize(); initNodes(); draw();
+})();
+</script>
+
+</body>
+</html>
